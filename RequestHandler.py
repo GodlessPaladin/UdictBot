@@ -1,12 +1,10 @@
 import wiktionaryparser as wp
 from config_reader import config
 import requests
-import types
 
 
 def get_definition(text, language=None):
     parser = wp.WiktionaryParser()
-    parser.exclude_relation('synonyms')
     data = parser.fetch(text, language)
     definitions = []
     try:
@@ -32,8 +30,11 @@ def get_udict_definition(text):
                "X-RapidAPI-Host": "mashape-community-urban-dictionary.p.rapidapi.com"}
 
     response = requests.request("GET", url, headers=headers, params=querystring)
-    contents = response.json().get('list')
     definitions = []
+    if not response.status_code == 200:
+        definitions.append(("Connection Error " + str(response.status_code)))
+        return definitions
+    contents = response.json().get('list')
     for item in contents:
         definitions.append(item.get('definition').replace('[', '').replace(']', ''))
         if len(definitions) > 3:

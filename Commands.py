@@ -4,11 +4,12 @@ import RequestHandler
 
 
 async def command_start(message: types.Message):
-    await message.reply("This is UdictBot. Give me a word or phrase and i'll give its definitions from Wiktionary and Urban Dictionary")
+    await message.reply("This is UdictBot. Give me a word or phrase and i'll find its definitions in Wiktionary and Urban Dictionary")
 
 
 async def command_help(message: types.Message):
-    await message.reply("Just type a word or phrase and i'll return definitions from Wiktionary and Urban Dictionary")
+    await message.reply("Just type a word or phrase and i'll search for it's definitions from Wiktionary"
+                        " and Urban Dictionary and reply them to you as a pointed list. Query is case-sensitive.")
 
 
 async def word_definition(message: types.Message):
